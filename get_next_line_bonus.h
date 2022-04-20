@@ -6,7 +6,7 @@
 /*   By: shogura <shogura@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 18:43:08 by shogura           #+#    #+#             */
-/*   Updated: 2022/04/20 12:32:18 by shogura          ###   ########.fr       */
+/*   Updated: 2022/04/20 15:55:44 by shogura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 size_t	ft_strlen(const char *s);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s1);
-char	*ft_strjoin(char *s1, char const *s2);
+char	*ft_strjoin(char *s1, char *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*get_next_line(int fd);
 #endif

@@ -6,7 +6,7 @@
 /*   By: shogura <shogura@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 19:28:15 by shogura           #+#    #+#             */
-/*   Updated: 2022/04/20 11:09:51 by shogura          ###   ########.fr       */
+/*   Updated: 2022/04/20 15:57:10 by shogura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*ft_strdup(const char *s1)
 	return (str);
 }
 
-char	*ft_strjoin(char *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*new_s;
 	size_t	len;
