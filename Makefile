@@ -6,7 +6,7 @@
 #    By: shogura <shogura@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/09 18:43:16 by shogura           #+#    #+#              #
-#    Updated: 2022/04/20 16:17:41 by shogura          ###   ########.fr        #
+#    Updated: 2022/04/20 18:36:15 by shogura          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,10 +25,10 @@ HEADER=get_next_line.h get_next_line_bonus.h
 BONUS=get_next_line_bonus.c get_next_line_utils_bonus.c
 
 all:${SRCS}
-	${CC} ${CFLAG} -D BUFFER_SIZE=1000000 $^ main.c
+	${CC} ${CFLAG} -D BUFFER_SIZE=100000000 $^ main.c
 
 bonus:${BONUS}
-	${CC} ${CFLAG} -D BUFFER_SIZE=1000000 $^ main_bonus.c
+	${CC} ${CFLAG} -D BUFFER_SIZE=42 $^ main_bonus.c
 
 nr:${SRCS} ${BONUS} ${HEADER}
 	${NR} $^

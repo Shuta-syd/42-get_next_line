@@ -6,34 +6,17 @@
 /*   By: shogura <shogura@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 15:48:51 by shogura           #+#    #+#             */
-/*   Updated: 2022/04/20 14:46:24 by shogura          ###   ########.fr       */
+/*   Updated: 2022/04/20 18:45:07 by shogura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
-void test(int fd)
-{
-	int index; //読み込み回数を確認する用
-	char *receiver = NULL;
-	index = 0;
-	while (1)
-	{
-		receiver = get_next_line(fd);
-		if (receiver == NULL)
-		{
-			printf("EOF or ERROR\n");
-			break;
-		}
-		printf("[%d] -> %s\n", index, receiver);
-		index++;
-		free(receiver);
-	}
-}
-
 int main(void)
 {
+	int i = 0; //読み込み回数を確認する用
+	char *receiver = NULL;
 	int	fd1;
 	int fd2;
 	int fd3;
@@ -51,10 +34,57 @@ int main(void)
 	fd3 = open(file_name[2], O_RDONLY);
 	fd4 = open(file_name[2], O_RDONLY);
 	printf("==========================MUSTIPLE==========================\n\n");
-	test(fd1);
-	test(fd2);
-	test(fd3);
-	test(fd4);
+	//1
+	receiver = get_next_line(fd1);
+	if (receiver == NULL)
+		printf("EOF or ERROR\n");
+	else
+		printf("[%d] -> %s\n", i, receiver);
+	printf("PASS\n");
+	i++;
+	free(receiver);
+	receiver = get_next_line(fd2);
+	if (receiver == NULL)
+		printf("EOF or ERROR\n");
+	else
+		printf("[%d] -> %s\n", i, receiver);
+	printf("PASS\n");
+	i++;
+	free(receiver);
+	receiver = get_next_line(fd3);
+	if (receiver == NULL)
+		printf("EOF or ERROR\n");
+	else
+		printf("[%d] -> %s\n", i, receiver);
+	printf("PASS\n");
+	i++;
+	free(receiver);
+
+	//2
+	receiver = get_next_line(fd1);
+	if (receiver == NULL)
+		printf("EOF or ERROR\n");
+	else
+		printf("[%d] -> %s\n", i, receiver);
+	printf("PASS\n");
+	i++;
+	free(receiver);
+	receiver = get_next_line(fd2);
+	if (receiver == NULL)
+		printf("EOF or ERROR\n");
+	else
+		printf("[%d] -> %s\n", i, receiver);
+	printf("PASS\n");
+	i++;
+	free(receiver);
+	receiver = get_next_line(fd3);
+	if (receiver == NULL)
+		printf("EOF or ERROR\n");
+	else
+		printf("[%d] -> %s\n", i, receiver);
+	printf("PASS\n");
+	i++;
+	free(receiver);
 	printf("=============================END============================\n\n");
 	close(fd1);
 	close(fd2);

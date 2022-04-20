@@ -6,7 +6,7 @@
 /*   By: shogura <shogura@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:01:38 by shogura           #+#    #+#             */
-/*   Updated: 2022/04/20 17:54:15 by shogura          ###   ########.fr       */
+/*   Updated: 2022/04/20 19:18:07 by shogura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,23 +91,25 @@ char	*get_next_line(int fd)
 {
 	char		*ret_line;
 	char		*line_buf;
-	static char	*save_buf;
+	static char	*save_buf[256];
 	bool		newline_b;
 
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
 	line_buf = NULL;
 	ret_line = NULL;
 	newline_b = false;
 	if (newline_b == false)
 	{
-		if (save_buf == NULL)
+		if (save_buf[fd] == NULL)
 			line_buf = read_and_check(fd, &newline_b, line_buf);
-		else if (save_buf != NULL)
+		else if (save_buf[fd] != NULL)
 		{
-			line_buf = read_and_join(fd, save_buf, &newline_b);
-			save_buf = NULL;
+			line_buf = read_and_join(fd, save_buf[fd], &newline_b);
+			save_buf[fd] = NULL;
 		}
 		while (newline_b == false && line_buf != NULL)
 			line_buf = read_and_join(fd, line_buf, &newline_b);
 	}
-	return (split_and_ret(line_buf, &save_buf, ret_line, 0));
+	return (split_and_ret(line_buf, &save_buf[fd], ret_line, 0));
 }
