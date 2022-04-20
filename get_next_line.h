@@ -6,20 +6,20 @@
 /*   By: shogura <shogura@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 18:43:08 by shogura           #+#    #+#             */
-/*   Updated: 2022/04/20 11:39:04 by shogura          ###   ########.fr       */
+/*   Updated: 2022/04/20 12:28:09 by shogura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
-#define GET_NEXT_LINE_H
-#include <limits.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#ifndef BUFFER_SIZE
-#define BUFFER_SIZE 42
-#endif
+# define GET_NEXT_LINE_H
+# include <limits.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdbool.h>
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 size_t	ft_strlen(const char *s);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s1);
