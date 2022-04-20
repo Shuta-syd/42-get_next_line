@@ -6,11 +6,32 @@
 /*   By: shogura <shogura@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 19:28:15 by shogura           #+#    #+#             */
-/*   Updated: 2022/04/20 15:57:37 by shogura          ###   ########.fr       */
+/*   Updated: 2022/04/20 17:54:20 by shogura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	size_t			i;
+	size_t			malloc_size;
+	void			*mem;
+	unsigned char	*str;
+
+	i = 0;
+	str = NULL;
+	malloc_size = count * size;
+	if (malloc_size == 0)
+		malloc_size = 1;
+	mem = (void *)malloc(malloc_size);
+	if (mem == NULL)
+		return (NULL);
+	str = (unsigned char *)mem;
+	while (i < malloc_size)
+		str[i++] = '\0';
+	return (mem);
+}
 
 size_t	ft_strlen(const char *s)
 {
@@ -36,26 +57,6 @@ char	*ft_strchr(const char *s, int c)
 	if (c == 0)
 		return ((char *)s);
 	return (NULL);
-}
-
-char	*ft_strdup(const char *s1)
-{
-	size_t	i;
-	size_t	len;
-	char	*str;
-
-	i = 0;
-	len = ft_strlen(s1);
-	str = (char *)malloc(sizeof(char) * (len + 1));
-	if (str == NULL)
-		return (NULL);
-	while (s1[i])
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
 }
 
 char	*ft_strjoin(char *s1, char *s2)

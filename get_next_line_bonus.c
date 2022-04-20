@@ -6,67 +6,55 @@
 /*   By: shogura <shogura@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:01:38 by shogura           #+#    #+#             */
-/*   Updated: 2022/04/20 16:06:25 by shogura          ###   ########.fr       */
+/*   Updated: 2022/04/20 17:54:15 by shogura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+char	*read_and_check(int fd, bool *newline_b, char *line_buf)
 {
-	unsigned char	*str;
-	size_t			i;
-
-	i = 0;
-	str = (unsigned char *)b;
-	while (i < len)
-	{
-		str[i] = (unsigned char)c;
-		i++;
-	}
-	return ((void *)str);
-}
-
-char	*read_and_check(int fd, bool *newline_b)
-{
-	char	*ret_line;
-	char	read_buf[BUFFER_SIZE + 1];
 	int		read_byte;
 
-	ret_line = NULL;
-	ft_memset(read_buf, 0, BUFFER_SIZE + 1);
-	read_byte = read(fd, read_buf, BUFFER_SIZE);
+	read_byte = 0;
+	line_buf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	if (line_buf == NULL)
+		return (NULL);
+	read_byte = read(fd, line_buf, BUFFER_SIZE);
 	if (read_byte == -1 || read_byte == 0)
+	{
+		free(line_buf);
 		return (NULL);
-	ret_line = ft_strdup(read_buf);
-	if (ret_line == NULL)
-		return (NULL);
-	if (ft_strchr(ret_line, '\n') != NULL)
+	}
+	if (ft_strchr(line_buf, '\n') != NULL)
 		*newline_b = true;
-	return (ret_line);
+	return (line_buf);
 }
 
 char	*read_and_join(int fd, char *line_buf, bool *newline_b)
 {
+	char	*read_buf;
 	char	*ret_line;
-	char	read_buf[BUFFER_SIZE + 1];
 	int		read_byte;
 
 	ret_line = NULL;
-	ft_memset(read_buf, 0, BUFFER_SIZE + 1);
+	read_buf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	if (read_buf == NULL)
+	{
+		free(line_buf);
+		return (NULL);
+	}
 	read_byte = read(fd, read_buf, BUFFER_SIZE);
 	if (read_byte == -1)
-		return (NULL);
-	else if (read_byte == 0)
 	{
-		*newline_b = true;
-		return (line_buf);
+		free(line_buf);
+		free(read_buf);
+		return (NULL);
 	}
 	ret_line = ft_strjoin(line_buf, read_buf);
 	free(line_buf);
-	if (ret_line == NULL)
-		return (NULL);
-	if (ft_strchr(ret_line, '\n') != NULL)
+	free(read_buf);
+	if (ft_strchr(ret_line, '\n') != NULL || read_byte == 0)
 		*newline_b = true;
 	return (ret_line);
 }
@@ -109,16 +97,15 @@ char	*get_next_line(int fd)
 	line_buf = NULL;
 	ret_line = NULL;
 	newline_b = false;
-	if (newline_b == false && save_buf == NULL)
+	if (newline_b == false)
 	{
-		line_buf = read_and_check(fd, &newline_b);
-		while (newline_b == false && line_buf != NULL)
-			line_buf = read_and_join(fd, line_buf, &newline_b);
-	}
-	else if (newline_b == false && save_buf != NULL)
-	{
-		line_buf = read_and_join(fd, save_buf, &newline_b);
-		save_buf = NULL;
+		if (save_buf == NULL)
+			line_buf = read_and_check(fd, &newline_b, line_buf);
+		else if (save_buf != NULL)
+		{
+			line_buf = read_and_join(fd, save_buf, &newline_b);
+			save_buf = NULL;
+		}
 		while (newline_b == false && line_buf != NULL)
 			line_buf = read_and_join(fd, line_buf, &newline_b);
 	}
