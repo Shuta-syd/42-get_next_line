@@ -91,7 +91,7 @@ char	*get_next_line(int fd)
 {
 	char		*ret_line;
 	char		*line_buf;
-	static char	*save_buf[256];
+	static char	*save_buf[OPEN_MAX];
 	bool		newline_b;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
